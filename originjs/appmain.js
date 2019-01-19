@@ -48,6 +48,7 @@ function main() {
         var nexter = true;
         e.hityaku.forEach(function(d) {
             var matrix = d.matrix;
+            console.log(d);
             switch (gamemode) {
                 case 'normal':
                     switch (d.name) {
@@ -62,7 +63,7 @@ function main() {
                                         sbig = true;
                                         hyperzone = 3;
                                     } else {
-                                        hyperzone = !rand(3) ? 3 : 0;
+                                        hyperzone = !rand(5) ? 3 : 0;
                                         if(hyperzone){sbig = true}
                                     }
                                     if (hyperzone == 3) {
@@ -72,8 +73,10 @@ function main() {
                                     if (sbig) {
                                         BGM = "SBIG"
                                     }
+                                    console.log("neko")
                                     sounder.playSound(["moonfailed", "moonsuccess"][sbig ? 1 : 0], false, () => {
                                         sounder.playSound(BGM, true)
+                                        console.log({hyperzone,sbig})
                                         bonusdata = {
                                             bonusget: 301,
                                             geted: 0
@@ -447,10 +450,9 @@ function main() {
     sounder.addFile("sound/yokoku_high.mp3", "yokoku_high").addTag("se");
     sounder.addFile("sound/pay.wav", "pay").addTag("se");
     sounder.addFile("sound/replay.wav", "replay").addTag("se");
-    sounder.addFile("sound/NormalBIG.wav", "NBIG").addTag("bgm")
-    sounder.addFile("sound/VBIG.wav", "VBIG").addTag("bgm")
+    sounder.addFile("sound/NormalBIG.wav", "NBIG").addTag("bgm").setVolume(0.2);
     sounder.addFile("sound/big15.wav", "pay15")
-    sounder.addFile("sound/SBIG.mp3", "SBIG").addTag("bgm");
+    sounder.addFile("sound/SBIG.mp3", "SBIG").addTag("bgm").setVolume(0.2);
     sounder.addFile("sound/JACNABI.wav", "jacnabi").addTag("se");
     sounder.addFile("sound/big1hit.wav", "big1hit").addTag("se");
     sounder.addFile("sound/moonsuccess.mp3", "moonsuccess").addTag("se");
@@ -458,15 +460,15 @@ function main() {
     sounder.addFile("sound/bell2.wav", "bell2").addTag("se");
     sounder.addFile("sound/nabi.wav", "nabi").addTag("voice").addTag("se");
     sounder.addFile("sound/reg.wav", "reg").addTag("bgm");
-    sounder.addFile("sound/big2.mp3", "big2").addTag("bgm");
-    sounder.addFile("sound/moonstart.mp3", "moonstart").addTag("se");
+    sounder.addFile("sound/big2.mp3", "big2").addTag("bgm").setVolume(0.2);
+    sounder.addFile("sound/moonstart.mp3", "moonstart").addTag("se").setVolume(0.2);
     sounder.addFile("sound/bigselect.mp3", "bigselect").addTag("se")
     sounder.addFile("sound/syoto.mp3", "syoto").addTag("se")
     sounder.addFile("sound/cherrypay.wav", "cherrypay").addTag("se");
     sounder.addFile("sound/bonuspay.wav", "bonuspay").addTag("voice").addTag("se");
     sounder.addFile("sound/bpay.wav", "bpay").addTag("se").setVolume(0.5);
-    sounder.setVolume("se", 0.2)
-    sounder.setVolume("bgm", 0.2)
+    // sounder.setVolume("se", 0.2)
+    // sounder.setVolume("bgm", 0.2)
     $(window).click(function sounderEvent(){
         if(window.sounder){return}
         sounder.loadFile(function() {
