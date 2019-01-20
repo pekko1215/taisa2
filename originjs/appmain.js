@@ -78,8 +78,9 @@ function main() {
                                         sounder.playSound(BGM, true)
                                         console.log({hyperzone,sbig})
                                         bonusdata = {
-                                            bonusget: 301,
-                                            geted: 0
+                                            bonusget: 361,
+                                            geted: 0,
+                                            startCoin:coin
                                         }
                                         setGamemode('big');
                                         changeBonusSeg()
@@ -125,8 +126,8 @@ function main() {
                     if (d.name == "JACIN") {
                         setGamemode('jac');
                         bonusdata.jacincount--;
-                        bonusdata.jacgamecount = 4;
-                        bonusdata.jacgetcount = 4;
+                        bonusdata.jacgamecount = 6;
+                        bonusdata.jacgetcount = 6;
                         jacflag = false
                     }
                     changeBonusSeg()
@@ -174,6 +175,12 @@ function main() {
     slotmodule.on("bonusend", () => {
         sounder.stopSound("bgm")
         setGamemode("normal")
+        segments.effectseg.setSegments(coin - bonusdata.startCoin);
+        slotmodule.freeze()
+        setTimeout(()=>{
+            slotmodule.resume();
+            segments.effectseg.setSegments("");
+        },1000);
     });
     slotmodule.on("payend", function() {
         if (gamemode != "normal") {
@@ -263,6 +270,7 @@ function main() {
                     switch (pays) {
                         case 2:
                         case 3:
+                        case 6:
                             sounder.playSound("cherrypay");
                             break;
                         case 15:
